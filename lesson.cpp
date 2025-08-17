@@ -15,51 +15,39 @@
 #include <chrono>
 #include <fstream>
 #include <ctime>
+#include <bitset>
 
-bool isPrime(int num)
+long long countOnesUpTo (long long n)
 {
-    if (num < 2)
-        return false;
-    for (int i = 2; i * i <= num; i++)
-    {
-        if (num % i == 0)
-            return false;
-    }
-    return true;
-}
+    if (n == 0)
+        return 0;
 
-std::string solve(int a, int b)
-{
-    std::string prime_num;
-    int n = 2;
-
-    while (prime_num.size() < a + b)
+    long long pos = 0;
+    long long temp = n;
+    while (temp > 1)
     {
-        if (isPrime(n))
-        {
-            prime_num += std::to_string(n);
-        }
-        n++;
+        temp >>= 1;
+        pos++;
     }
 
-    return prime_num.substr(a, b);
-}
+    long long result = pos * (1LL << (pos - 1));
+    long long remaining = n - (1LL << pos);
 
-void doTest(int a, int b, const std::string &expected)
+    result += (remaining + 1);
+    result += countOnesUpTo(remaining);
+
+    return result;
+};
+
+long long countOnes(int left, int right)
 {
-    assert(solve(a, b) == (expected));
+    return countOnesUpTo(right) - countOnesUpTo(left - 1);
 }
 
 int main()
 {
-    doTest(2, 2, "57");
-    doTest(10, 3, "192");
-    doTest(20, 9, "414347535");
-    doTest(30, 12, "616771737983");
-    doTest(40, 8, "83899710");
-    doTest(50, 6, "031071");
-    doTest(10000, 5, "02192");
-    doTest(20000, 5, "09334");
+    std::cout << countOnes(4, 7) << std::endl;
+    assert(countOnes(4, 7) == (8));
 
     std::cout << "All tests passed!" << std::endl;
 
