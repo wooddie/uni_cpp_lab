@@ -16,33 +16,50 @@
 #include <fstream>
 #include <ctime>
 
-int persistence(long long n)
+bool isPrime(int num)
 {
-    int count = 0;
-
-    while (n >= 10)
+    if (num < 2)
+        return false;
+    for (int i = 2; i * i <= num; i++)
     {
-        long long product = 1;
-        while (n > 0)
+        if (num % i == 0)
+            return false;
+    }
+    return true;
+}
+
+std::string solve(int a, int b)
+{
+    std::string prime_num;
+    int n = 2;
+
+    while (prime_num.size() < a + b)
+    {
+        if (isPrime(n))
         {
-            product *= n % 10;
-            n /= 10;
+            prime_num += std::to_string(n);
         }
-        n = product;
-        count++;
+        n++;
     }
 
-    return count;
+    return prime_num.substr(a, b);
+}
+
+void doTest(int a, int b, const std::string &expected)
+{
+    assert(solve(a, b) == (expected));
 }
 
 int main()
 {
-    std::cout << persistence(39);
-    assert(persistence(39) == (3));
-    assert(persistence(4) == (0));
-    assert(persistence(25) == (2));
-    assert(persistence(999) == (4));
-    assert(persistence(444) == (3));
+    doTest(2, 2, "57");
+    doTest(10, 3, "192");
+    doTest(20, 9, "414347535");
+    doTest(30, 12, "616771737983");
+    doTest(40, 8, "83899710");
+    doTest(50, 6, "031071");
+    doTest(10000, 5, "02192");
+    doTest(20000, 5, "09334");
 
     std::cout << "All tests passed!" << std::endl;
 
