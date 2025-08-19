@@ -17,39 +17,50 @@
 #include <ctime>
 #include <bitset>
 
-long long countOnesUpTo (long long n)
+std::string caesarEncrypt(const std::string &text, int shift, const char alphabet[], int alphabetSize)
 {
-    if (n == 0)
-        return 0;
+    std::string result;
 
-    long long pos = 0;
-    long long temp = n;
-    while (temp > 1)
+    for (char c : text)
     {
-        temp >>= 1;
-        pos++;
+        int index = -1;
+
+        for (int i = 0; i < alphabetSize; i++)
+        {
+            if (alphabet[i] == toupper(c))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != -1)
+        {
+            int newIndex = (index - shift + alphabetSize) % alphabetSize;
+            result += alphabet[newIndex];
+        }
+        else
+        {
+            result += c;
+        }
     }
 
-    long long result = pos * (1LL << (pos - 1));
-    long long remaining = n - (1LL << pos);
-
-    result += (remaining + 1);
-    result += countOnesUpTo(remaining);
-
     return result;
-};
-
-long long countOnes(int left, int right)
-{
-    return countOnesUpTo(right) - countOnesUpTo(left - 1);
 }
 
 int main()
 {
-    std::cout << countOnes(4, 7) << std::endl;
-    assert(countOnes(4, 7) == (8));
 
-    std::cout << "All tests passed!" << std::endl;
+    const char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    int alphabetSize = sizeof(alphabet) / sizeof(alphabet[0]);
+
+    int i = 0;
+    while (i <= 26) {
+        std::cout << i << " try : " << "picoCTF{" << caesarEncrypt("dspttjohuifsvcjdpoabrkttds", i, alphabet, alphabetSize) << "}" << std::endl;
+        i++;
+    }
+
 
     return 0;
 }
