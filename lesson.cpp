@@ -17,50 +17,28 @@
 #include <ctime>
 #include <bitset>
 
-std::string caesarEncrypt(const std::string &text, int shift, const char alphabet[], int alphabetSize)
+int main()
 {
+    std::unordered_map<char, char> list = {
+        {'O', 'A'}, {'H', 'B'}, {'N', 'C'}, {'F', 'D'}, {'U', 'E'}, {'M', 'F'}, {'W', 'G'}, 
+        {'S', 'H'}, {'V', 'I'}, {'Z', 'J'}, {'L', 'K'}, {'X', 'L'}, {'E', 'M'}, {'G', 'N'}, 
+        {'C', 'O'}, {'P', 'P'}, {'T', 'Q'}, {'A', 'R'}, {'J', 'S'}, {'D', 'T'}, {'Y', 'U'}, 
+        {'I', 'V'}, {'R', 'W'}, {'K', 'X'}, {'Q', 'Y'}, {'B', 'Z'}
+    };
+
+    std::string str = "pvncNDM{5YH5717Y710G_3I0XY710G_03055505}";
     std::string result;
 
-    for (char c : text)
-    {
-        int index = -1;
-
-        for (int i = 0; i < alphabetSize; i++)
-        {
-            if (alphabet[i] == toupper(c))
-            {
-                index = i;
-                break;
-            }
-        }
-
-        if (index != -1)
-        {
-            int newIndex = (index - shift + alphabetSize) % alphabetSize;
-            result += alphabet[newIndex];
-        }
-        else
-        {
+    for (char c : str) {
+        char chr = toupper(c);
+        if (list.count(chr)) {
+            result += list[chr];
+        } else {
             result += c;
         }
     }
 
-    return result;
-}
-
-int main()
-{
-
-    const char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    int alphabetSize = sizeof(alphabet) / sizeof(alphabet[0]);
-
-    int i = 0;
-    while (i <= 26) {
-        std::cout << i << " try : " << "picoCTF{" << caesarEncrypt("dspttjohuifsvcjdpoabrkttds", i, alphabet, alphabetSize) << "}" << std::endl;
-        i++;
-    }
-
+    std::cout << result << std::endl;
 
     return 0;
 }
