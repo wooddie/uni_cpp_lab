@@ -17,28 +17,35 @@
 #include <ctime>
 #include <bitset>
 
-int main()
-{
-    std::unordered_map<char, char> list = {
-        {'O', 'A'}, {'H', 'B'}, {'N', 'C'}, {'F', 'D'}, {'U', 'E'}, {'M', 'F'}, {'W', 'G'}, 
-        {'S', 'H'}, {'V', 'I'}, {'Z', 'J'}, {'L', 'K'}, {'X', 'L'}, {'E', 'M'}, {'G', 'N'}, 
-        {'C', 'O'}, {'P', 'P'}, {'T', 'Q'}, {'A', 'R'}, {'J', 'S'}, {'D', 'T'}, {'Y', 'U'}, 
-        {'I', 'V'}, {'R', 'W'}, {'K', 'X'}, {'Q', 'Y'}, {'B', 'Z'}
-    };
-
-    std::string str = "pvncNDM{5YH5717Y710G_3I0XY710G_03055505}";
+void decode(std::string enc, int step) {
     std::string result;
 
-    for (char c : str) {
-        char chr = toupper(c);
-        if (list.count(chr)) {
-            result += list[chr];
+    for(char c : enc) {
+        if(isalpha(c)) {
+            if(isupper(c)) {
+                char chr = (char)('A' + (c - 'A' + step) % 26);
+                result.push_back(chr);
+            }
+            if(islower(c)) {
+                char chr = (char)('a' + (c - 'a' + step) % 26);
+                result.push_back(chr);
+            }
         } else {
-            result += c;
+            result.push_back(c);
         }
     }
-
     std::cout << result << std::endl;
+}
+
+int main()
+{
+    int n = 1;
+
+    while(n < 26) {
+        decode("ISDQ{gdkkn_vnqkc}", n);
+        n++;
+    }
+
 
     return 0;
 }
