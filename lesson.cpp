@@ -21,45 +21,42 @@
 
 int main()
 {
-    int n = 0;
-    std::cout << "Введите количество чисел последовательности: ";
-    std::cin >> n;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::string line1;
+    std::vector<int> vec1;
+    std::string line2;
+    std::vector<int> vec2;
 
-    std::string line;
-    std::vector<double> vec;
+    std::cout << "Введите элементы первого массива: ";
+    std::getline(std::cin, line1);
 
-    while (vec.size() < n)
+    std::istringstream iss1(line1);
+    double num1;
+    while (iss1 >> num1)
     {
-        std::cout << "Введите последовательность чисел через пробел: ";
-        std::getline(std::cin, line);
-
-        std::istringstream iss(line);
-        double num;
-        while (iss >> num)
-        {
-            vec.push_back(num);
-        }
+        vec1.push_back(num1);
     }
 
-    if (vec.size() > n)
+    std::cout << "Введите элементы второго массива: ";
+    std::getline(std::cin, line2);
+
+    std::istringstream iss2(line2);
+    double num2;
+    while (iss2 >> num2)
     {
-        vec.resize(n);
+        vec2.push_back(num2);
     }
 
-    double sum = 0;
-    for (double n : vec)
+    vec1.insert(vec1.end(), vec2.begin(), vec2.end());
+    std::sort(vec1.begin(), vec1.end());
+
+    std::string result;
+
+    for (auto n : vec1)
     {
-        sum += n;
+        result += std::to_string(n) + " ";
     }
 
-    double min_value = *std::min_element(vec.begin(), vec.end());
-    double max_value = *std::max_element(vec.begin(), vec.end());
-
-    std::cout << std::fixed << std::setprecision(1);
-    std::cout << "Среднее арифметическое: " << sum / vec.size() << std::endl;
-    std::cout << "Минимальное число: " << min_value << std::endl;
-    std::cout << "Максимальное число: " << max_value << std::endl;
+    std::cout << "Массив-результат: " << result << std::endl;
 
     return 0;
 }
