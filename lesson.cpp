@@ -21,42 +21,15 @@
 
 int main()
 {
-    std::string line1;
-    std::vector<int> vec1;
-    std::string line2;
-    std::vector<int> vec2;
+    double hour_in_minute = 0.0;
+    std::cout << "Введите временной интервал (в минутах): ";
+    std::cin >> hour_in_minute;
 
-    std::cout << "Введите элементы первого массива: ";
-    std::getline(std::cin, line1);
+    int hours = hour_in_minute / 60;
 
-    std::istringstream iss1(line1);
-    double num1;
-    while (iss1 >> num1)
-    {
-        vec1.push_back(num1);
-    }
+    double minutes = fmod(hour_in_minute / 60, 1.0);
 
-    std::cout << "Введите элементы второго массива: ";
-    std::getline(std::cin, line2);
-
-    std::istringstream iss2(line2);
-    double num2;
-    while (iss2 >> num2)
-    {
-        vec2.push_back(num2);
-    }
-
-    vec1.insert(vec1.end(), vec2.begin(), vec2.end());
-    std::sort(vec1.begin(), vec1.end());
-
-    std::string result;
-
-    for (auto n : vec1)
-    {
-        result += std::to_string(n) + " ";
-    }
-
-    std::cout << "Массив-результат: " << result << std::endl;
+    std::cout << hour_in_minute << " минут = " << hours << " ч. " << std::ceil(60 * minutes) << " мин." << std::endl;
 
     return 0;
 }

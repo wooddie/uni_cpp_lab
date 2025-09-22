@@ -61,5 +61,23 @@
         "utility": "cpp",
         "regex": "cpp",
         "unordered_set": "cpp"
+    },
+    "background.editor": {
+        "useFront": true,
+        "style": {
+            "background-position": "center center",
+            "background-size": "cover",
+            "opacity": 0.04
+        },
+        "styles": [
+            {},
+            {},
+            {}
+        ],
+        "images": [
+            "file:///Users/kanapiya/Documents/background/girl.PNG"
+        ],
+        "interval": 0,
+        "random": false
     }
 }
