@@ -21,15 +21,20 @@
 
 int main()
 {
-    double hour_in_minute = 0.0;
-    std::cout << "Введите временной интервал (в минутах): ";
-    std::cin >> hour_in_minute;
+    std::cout << "Введите цену 1 кг яблок: ";
+    double price = 0;
+    std::cin >> price;
 
-    int hours = hour_in_minute / 60;
+    std::cout << "Вес       Стоимость" << std::endl;
+    double weight = 100.0;
 
-    double minutes = fmod(hour_in_minute / 60, 1.0);
-
-    std::cout << hour_in_minute << " минут = " << hours << " ч. " << std::ceil(60 * minutes) << " мин." << std::endl;
+    while (weight <= 1000)
+    {
+        double newPrice = (price / 1000) * weight;
+        std::cout << std::fixed << std::setprecision(2);
+        std::cout << weight << "      " << newPrice << std::endl;
+        weight += 100;
+    }
 
     return 0;
 }
