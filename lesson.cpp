@@ -17,35 +17,17 @@
 #include <ctime>
 #include <bitset>
 
-void decode(std::string enc, int step) {
-    std::string result;
 
-    for(char c : enc) {
-        if(isalpha(c)) {
-            if(isupper(c)) {
-                char chr = (char)('A' + (c - 'A' + step) % 26);
-                result.push_back(chr);
-            }
-            if(islower(c)) {
-                char chr = (char)('a' + (c - 'a' + step) % 26);
-                result.push_back(chr);
-            }
-        } else {
-            result.push_back(c);
-        }
-    }
-    std::cout << result << std::endl;
-}
 
 int main()
 {
-    int n = 1;
+    float n = 0;
 
-    while(n < 26) {
-        decode("ISDQ{gdkkn_vnqkc}", n);
-        n++;
-    }
+    std::cout << "Введите расстояние в верстах: ";
+    std::cin >> n;
 
+
+    std::cout << n << " верст = " << n * 1.0668 << std::endl;
 
     return 0;
 }
