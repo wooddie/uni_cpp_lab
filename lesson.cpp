@@ -19,22 +19,37 @@
 #include <sstream>
 #include <limits>
 
+class Solution
+{
+public:
+    int strStr(std::string haystack, std::string needle)
+    {
+
+        size_t pos = haystack.find(needle);
+
+        if (pos != std::string::npos)
+        {
+            return pos;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+};
+
 int main()
 {
-    std::cout << "Введите цену 1 кг яблок: ";
-    double price = 0;
-    std::cin >> price;
+    Solution s1;
+    std::string haystack = "sadbutsad";
+    std::string needle = "sad";
+    int r = s1.strStr(haystack, needle);
+    std::cout << r << std::endl;
 
-    std::cout << "Вес       Стоимость" << std::endl;
-    double weight = 100.0;
-
-    while (weight <= 1000)
-    {
-        double newPrice = (price / 1000) * weight;
-        std::cout << std::fixed << std::setprecision(2);
-        std::cout << weight << "      " << newPrice << std::endl;
-        weight += 100;
-    }
+    haystack = "leetcode";
+    needle = "leeto";
+    r = s1.strStr(haystack, needle);
+    std::cout << r << std::endl;
 
     return 0;
 }
